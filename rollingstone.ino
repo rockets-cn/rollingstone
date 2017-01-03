@@ -30,6 +30,7 @@ void loop() {
 
 }
 //读取GoBle所有按键摇杆值
+//read all value of joystick from GoBle
  void readGoBle()
  {
     // read joystick value when there's valid command from bluetooth
@@ -64,24 +65,29 @@ void loop() {
     }*/
  }
  //根据GoBle按键值进行小车运动控制
+//use joystick to control the motion of the Rollingstone
  //摇杆左右为转大弯，按键左右为原地转弯
+//joystick for the tune, button for the circle.
  void motorContrl()
  {
     if ((buttonState[SWITCH_UP] == PRESSED)||((joystickX>128)&&(joystickY>=64)&&(joystickY<=192)))
     {
       Romeo_m.motorControl(Forward,200,Forward,200);//前进
+     //fowarwd
       return;//结束子函数
     }
   
     if ((buttonState[SWITCH_DOWN] == PRESSED)||((joystickX<128)&&(joystickY>=64)&&(joystickY<=192)))
    {
      Romeo_m.motorControl(Reverse,150,Reverse,150);//后退
+    //backward
      return;//结束子函数
    }
    
     if(buttonState[SWITCH_LEFT] == PRESSED)
     {
         Romeo_m.motorControl(Reverse,100,Forward,100);//左转
+     //turn left
         return;//结束子函数
     }
     
@@ -89,6 +95,7 @@ void loop() {
    {
      
        Romeo_m.motorControl_M1(Forward,200);//左转大弯
+    //go left
        Romeo_m.motorControl_M2(Forward,80);
        
         return;//结束子函数
@@ -97,6 +104,7 @@ void loop() {
     if( buttonState[SWITCH_RIGHT] == PRESSED)
     {
         Romeo_m.motorControl(Forward,100,Reverse,100);//右转
+     //turn right
         return;//结束子函数
     }
     
@@ -104,12 +112,14 @@ void loop() {
     {
        
         Romeo_m.motorControl_M2(Forward,200); //右转大弯
+     //go right
         Romeo_m.motorControl_M1(Forward,80);
   
         return;//结束子函数
     }
     
     Romeo_m.motorStop();//没有按键按下则停止
+  //stop when no value
  }
 //led blink函数，每次执行延时10ms，100次时执行一次电平反向
  void delayLedBlink()
